@@ -840,15 +840,34 @@ nnoremap <leader>f :CtrlP<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 " }}}
+" Fugitive {{{
+
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>ga :Gadd<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gco :Gcheckout<cr>
+nnoremap <leader>gci :Gcommit<cr>
+nnoremap <leader>gm :Gmove<cr>
+nnoremap <leader>gr :Gremove<cr>
+
+augroup ft_fugitive
+    au!
+
+    au BufNewFile,BufRead .git/index setlocal nolist
+augroup END
+
+"}}}
 " GitGutter {{{
 let g:gitgutter_enabled = 0
 nnoremap <leader>gg :GitGutterToggle<cr>
 " }}}
-" Tagbar {{{
+" Gundo {{{
 
-nnoremap <leader>t :TagbarToggle<cr>
+nnoremap <leader>u :GundoToggle<cr>
 
-" }}}
+"}}}
 " Syntastic {{{
 
 let g:syntastic_enable_signs = 1
@@ -859,11 +878,11 @@ let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 
 nnoremap <leader>C :SyntasticCheck<cr>
 " }}}
-" Gundo {{{
+" Tagbar {{{
 
-nnoremap <leader>u :GundoToggle<cr>
+nnoremap <leader>t :TagbarToggle<cr>
 
-"}}}
+" }}}
 
 " }}}
 " Text Objects ------------------------------------------------------------- {{{
