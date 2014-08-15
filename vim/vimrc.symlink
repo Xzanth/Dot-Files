@@ -17,6 +17,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/syntastic'
+Plugin 'sjl/gundo.vim'
 
 " Colorschemes
 Plugin 'nanotech/jellybeans.vim'
@@ -218,6 +219,7 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+map <leader>q :q<cr>
 
 " Visual Mode */# from Scrooloose {{{
 function! s:VSetSearch()
@@ -853,6 +855,11 @@ let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 
 nnoremap <leader>C :SyntasticCheck<cr>
 " }}}
+" Gundo {{{
+
+nnoremap <leader>u :GundoToggle<cr>
+
+"}}}
 
 " }}}
 " Text Objects ------------------------------------------------------------- {{{
