@@ -1,14 +1,30 @@
 set nocompatible
 filetype off
 
+" Plugins ------------------------------------------------------------------ {{{
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" Plugin manager
 Plugin 'gmarik/Vundle.vim'
+
+" Normal plugins
+Plugin 'bling/vim-airline'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-bufferline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/syntastic'
+
+" Colorschemes
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
 
 call vundle#end()
 filetype plugin indent on
-
+" }}}
 " Basic options ------------------------------------------------------------ {{{
 
 set autoindent
@@ -21,7 +37,7 @@ set encoding=utf-8
 set formatoptions=qrn1j
 set hidden
 set history=1000
-set laststatus=1
+set laststatus=2
 set lazyredraw
 set linebreak
 set list
@@ -794,6 +810,48 @@ augroup ft_xml
 	au FileType xml nnoremap <buffer> <localleader>= Vat=
 augroup END
 
+" }}}
+
+" }}}
+" Plugin Settings ---------------------------------------------------------- {{{
+
+" Ack {{{
+
+nnoremap <leader>a :Ack!<space>
+let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+
+" }}}
+" Airline {{{
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'powerlineish'
+
+
+" }}}
+" CtrlP {{{
+
+nnoremap <leader>f :CtrlP<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
+
+" }}}
+" GitGutter {{{
+let g:gitgutter_enabled = 0
+nnoremap <leader>gg :GitGutterToggle<cr>
+" }}}
+" Tagbar {{{
+
+nnoremap <leader>t :TagbarToggle<cr>
+
+" }}}
+" Syntastic {{{
+
+let g:syntastic_enable_signs = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_jump = 0
+let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
+
+nnoremap <leader>C :SyntasticCheck<cr>
 " }}}
 
 " }}}
