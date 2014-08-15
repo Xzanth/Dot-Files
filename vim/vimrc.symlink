@@ -210,6 +210,9 @@ inoremap <F1> <esc>:checktime<cr>
 nnoremap <leader>s vip:!sort<cr>
 vnoremap <leader>s :!sort<cr>
 
+" Create empty line below
+nnoremap <silent><leader>o :set paste<cr>mzo<Esc>`z:set nopaste<cr>
+
 " Tabs
 nnoremap <C-Tab> :tabnext<cr>
 nnoremap <C-S-Tab> :tabprev<cr>
