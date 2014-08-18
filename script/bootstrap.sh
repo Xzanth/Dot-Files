@@ -38,6 +38,19 @@ setup_vundle () {
 	fi
 }
 
+setup_prezto () {
+	if [ ! -d "$HOME/.zprezto" ]
+	then
+		info 'Setting up Prezto'
+
+		git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
+		setopt EXTENDED_GLOB
+		for rcfile in "$HOME"/.zprezto/runcoms/^README.md(.N); do
+			ln -s "$rcfile" "$HOME/.${rcfile:t}"
+		done
+	fi
+}
+
 link_file () {
 	local src=$1 dst=$2
 
@@ -125,6 +138,7 @@ install_dotfiles () {
 }
 
 setup_vundle
+setup_prezto
 install_dotfiles
 
 echo ''
