@@ -44,8 +44,8 @@ setup_prezto () {
 		info 'Setting up Prezto'
 
 		git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
-		setopt EXTENDED_GLOB
-		for rcfile in "$HOME"/.zprezto/runcoms/^README.md(.N); do
+		for rcfile in `find $HOME/.zprezto/runcoms/ -type f -not -name 'README.md'`
+		do
 			ln -s "$rcfile" "$HOME/.${rcfile:t}"
 		done
 	fi
@@ -130,7 +130,25 @@ install_dotfiles () {
 
 	local overwrite_all=false backup_all=false skip_all=false
 
-	for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
+	for D in `find . -type d`
+	do
+		user "Do you want to install $D? Y/N"
+		read -n 1 action
+
+		case "$action" in
+			Y )
+				install_module "$D";;
+			N )
+				info "skipped $D";;
+			* )
+				;;
+		esac
+	done
+}
+
+install_module () {
+	local folder=$1
+	for src in $(find "$DOTFILES_ROOT/$folder" -maxdepth 2 -name '*.symlink')
 	do
 		dst="$HOME/.$(basename "${src%.*}")"
 		link_file "$src" "$dst"
