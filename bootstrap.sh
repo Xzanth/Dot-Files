@@ -14,7 +14,7 @@ info () {
 }
 
 user () {
-	printf "\r[ \033[0;33m?\033[0m ] $1 "
+	printf "\r[ \033[0;33m??\033[0m ] $1 "
 }
 
 success () {
@@ -130,22 +130,50 @@ install_dotfiles () {
 
 	local overwrite_all=false backup_all=false skip_all=false
 
-	for D in `find . -type d`
-	do
-		user "Do you want to install $D? Y/N"
-		read -n 1 action
-
-		case "$action" in
-			Y )
-				install_module "$D";;
-			N )
-				info "skipped $D";;
-			* )
-				;;
-		esac
-	done
+	if [ "$makeconf" == "true" ] || [ ! -f "$DOTFILES_ROOT/.dotfiles/install.conf" ]
+	then
+		INSTALLED=()
+		for Dir in $(ls -d $DOTFILES_ROOT/.dotfiles/*/)
+		do
+			no_trail_slash=${Dir%%/}
+			folder=${no_trail_slash##*/}
+			confirm "$folder"
+		done
+		for item in ${INSTALLED[*]}
+		do
+			echo $item >> $DOTFILES_ROOT/.dotfiles/install.conf
+		done
+	else
+		while read line
+		do
+			if [ ! -d "$DOTFILES_ROOT/.dotfiles/$line" ]
+				fail "Error reading previous config at $DOTFILES_ROOT/.dotfiles/install.conf"
+			else
+				confirm "$folder"
+			fi
+		done < "$DOTFILES_ROOT/.dotfiles/install.conf"
+	fi
 }
 
+confirm_module () {
+	local folder=$1
+	user "Do you want to install $folder? Y/N "
+	read -n 1 action
+	printf "\n"
+
+	case "$action" in
+		Y )
+			INSTALLED+=("$folder")
+			info "Installing $folder"
+			install_module "$folder"
+			;;
+		N )
+			info "Skipped $folder"
+			;;
+		* )
+			;;
+	esac
+}
 install_module () {
 	local folder=$1
 	for src in $(find "$DOTFILES_ROOT/$folder" -maxdepth 2 -name '*.symlink')
