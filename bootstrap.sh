@@ -27,30 +27,6 @@ fail () {
 	exit
 }
 
-setup_vundle () {
-	if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]
-	then
-		info 'Setting up Vundle'
-
-		mkdir -p $HOME/.vim/bundle
-		git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-		success 'Vundle'
-	fi
-}
-
-setup_prezto () {
-	if [ ! -d "$HOME/.zprezto" ]
-	then
-		info 'Setting up Prezto'
-
-		git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
-		for rcfile in `find $HOME/.zprezto/runcoms/ -type f -not -name 'README.md'`
-		do
-			ln -s "$rcfile" "$HOME/.${rcfile:t}"
-		done
-	fi
-}
-
 link_file () {
 	local src=$1 dst=$2
 
@@ -177,6 +153,7 @@ confirm_module () {
 }
 install_module () {
 	local folder=$1
+	bash $folder/install.sh
 	for src in $(find "$DOTFILES_ROOT/$folder" -maxdepth 2 -name '*.symlink')
 	do
 		dst="$HOME/.$(basename "${src%.*}")"
@@ -184,8 +161,6 @@ install_module () {
 	done
 }
 
-setup_vundle
-setup_prezto
 install_dotfiles
 
 echo ''
