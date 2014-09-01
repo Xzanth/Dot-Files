@@ -25,8 +25,6 @@ fail () {
 	exit
 }
 
-echo ''
-
 link_file () {
 	local src=$1 dst=$2
 
