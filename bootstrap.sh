@@ -153,7 +153,7 @@ confirm_module () {
 }
 install_module () {
 	local folder=$1
-	bash $folder/install.sh
+	if [ -f "$folder/install.sh" ]; then bash $folder/install.sh; fi
 	for src in $(find "$DOTFILES_ROOT/$folder" -maxdepth 2 -name '*.symlink')
 	do
 		dst="$HOME/.$(basename "${src%.*}")"
