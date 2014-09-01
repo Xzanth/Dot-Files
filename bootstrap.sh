@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
 # bootstrap installs things.
-
-cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd)
-
 set -e
+
+cd "$(dirname "$0")"
+DOTFILES_ROOT=$(pwd)
+if [ "$1" == "--makeconf" ]; then MAKE_CONF=true; else MAKE_CONF=false; fi
 
 echo ''
 
@@ -22,7 +22,7 @@ success () {
 }
 
 fail () {
-	printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+	printf "\r\033[2K[\033[0;31mFAIL\033[0m] $1\n"
 	echo ''
 	exit
 }
@@ -49,7 +49,8 @@ link_file () {
 			else
 
 				user "File already exists: $(basename "$src"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-				read -n 1 action
+				read -u 3 -n 1 action
+				printf "\n"
 
 				case "$action" in
 					o )
@@ -65,7 +66,7 @@ link_file () {
 					S )
 						skip_all=true;;
 					* )
-						;;
+						fail "Invalid response";;
 				esac
 
 			fi
@@ -106,29 +107,32 @@ install_dotfiles () {
 
 	local overwrite_all=false backup_all=false skip_all=false
 
-	if [ "$makeconf" == "true" ] || [ ! -f "$DOTFILES_ROOT/.dotfiles/install.conf" ]
+	if [ "$MAKE_CONF" == true ] || [ ! -f "$DOTFILES_ROOT/install.conf" ]
 	then
 		INSTALLED=()
-		for Dir in $(ls -d $DOTFILES_ROOT/.dotfiles/*/)
+		for Dir in $(ls -d $DOTFILES_ROOT/*/)
 		do
 			no_trail_slash=${Dir%%/}
 			folder=${no_trail_slash##*/}
 			confirm_module "$folder"
-		done
+		done 3<&0
+		if [ -f "$DOTFILES_ROOT/install.conf" ]; then rm $DOTFILES_ROOT/install.conf; fi
 		for item in ${INSTALLED[*]}
 		do
-			echo $item >> $DOTFILES_ROOT/.dotfiles/install.conf
+			echo $item >> $DOTFILES_ROOT/install.conf
 		done
+		success "Saved config file as $DOTFILES_ROOT/install.conf"
 	else
+		info "Loading config from $DOTFILES_ROOT/install.conf"
 		while read line
 		do
-			if [ ! -d "$DOTFILES_ROOT/.dotfiles/$line" ]
+			if [ ! -d "$DOTFILES_ROOT/$line" ]
 			then
-				fail "Error reading previous config at $DOTFILES_ROOT/.dotfiles/install.conf"
+				fail "Error reading config"
 			else
-				confirm_module "$folder"
+				install_module "$line"
 			fi
-		done < "$DOTFILES_ROOT/.dotfiles/install.conf"
+		done 3<&0 <"$DOTFILES_ROOT/install.conf"
 	fi
 }
 
@@ -139,21 +143,22 @@ confirm_module () {
 	printf "\n"
 
 	case "$action" in
-		Y )
+		[yY] )
 			INSTALLED+=("$folder")
-			info "Installing $folder"
 			install_module "$folder"
 			;;
-		N )
+		[nN] )
 			info "Skipped $folder"
 			;;
 		* )
+			fail "Invalid response"
 			;;
 	esac
 }
 install_module () {
 	local folder=$1
-	if [ -f "$folder/install.sh" ]; then bash $folder/install.sh; fi
+	info "Installing $folder"
+	if [ -f "$DOTFILES_ROOT/$folder/install.sh" ]; then bash $DOTFILES_ROOT/$folder/install.sh; fi
 	for src in $(find "$DOTFILES_ROOT/$folder" -maxdepth 2 -name '*.symlink')
 	do
 		dst="$HOME/.$(basename "${src%.*}")"
@@ -163,5 +168,4 @@ install_module () {
 
 install_dotfiles
 
-echo ''
-echo '	All installed!'
+success "All installed!"
