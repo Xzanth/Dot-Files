@@ -113,7 +113,7 @@ install_dotfiles () {
 		do
 			no_trail_slash=${Dir%%/}
 			folder=${no_trail_slash##*/}
-			confirm "$folder"
+			confirm_module "$folder"
 		done
 		for item in ${INSTALLED[*]}
 		do
@@ -126,7 +126,7 @@ install_dotfiles () {
 			then
 				fail "Error reading previous config at $DOTFILES_ROOT/.dotfiles/install.conf"
 			else
-				confirm "$folder"
+				confirm_module "$folder"
 			fi
 		done < "$DOTFILES_ROOT/.dotfiles/install.conf"
 	fi
