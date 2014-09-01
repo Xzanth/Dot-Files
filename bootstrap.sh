@@ -147,6 +147,7 @@ install_dotfiles () {
 		while read line
 		do
 			if [ ! -d "$DOTFILES_ROOT/.dotfiles/$line" ]
+			then
 				fail "Error reading previous config at $DOTFILES_ROOT/.dotfiles/install.conf"
 			else
 				confirm "$folder"
