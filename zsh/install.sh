@@ -6,8 +6,9 @@ setup_prezto () {
 		git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
 		for rcfile in `find $HOME/.zprezto/runcoms/ -type f -not -name 'README.md'`
 		do
-			ln -s "$rcfile" "$HOME/.${rcfile:t}"
+			ln -sf "$rcfile" "$HOME/.${rcfile##*/}"
 		done
+		success 'Prezto installed'
 	fi
 }
 

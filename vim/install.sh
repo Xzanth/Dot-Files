@@ -5,7 +5,7 @@ setup_vundle () {
 
 		mkdir -p $HOME/.vim/bundle
 		git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-		success 'Vundle'
+		success 'Vundle installed'
 	fi
 }
 

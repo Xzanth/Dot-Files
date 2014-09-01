@@ -7,8 +7,6 @@ cd "$(dirname "$0")"
 DOTFILES_ROOT=$(pwd)
 if [ "$1" == "--makeconf" ]; then MAKE_CONF=true; else MAKE_CONF=false; fi
 
-echo ''
-
 info () {
 	printf "[ \033[00;34m..\033[0m ] $1\n"
 }
@@ -26,6 +24,8 @@ fail () {
 	echo ''
 	exit
 }
+
+echo ''
 
 link_file () {
 	local src=$1 dst=$2
@@ -158,7 +158,7 @@ confirm_module () {
 install_module () {
 	local folder=$1
 	info "Installing $folder"
-	if [ -f "$DOTFILES_ROOT/$folder/install.sh" ]; then bash $DOTFILES_ROOT/$folder/install.sh; fi
+	if [ -f "$DOTFILES_ROOT/$folder/install.sh" ]; then source $DOTFILES_ROOT/$folder/install.sh; fi
 	for src in $(find "$DOTFILES_ROOT/$folder" -maxdepth 2 -name '*.symlink')
 	do
 		dst="$HOME/.$(basename "${src%.*}")"
