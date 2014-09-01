@@ -155,6 +155,7 @@ confirm_module () {
 			;;
 	esac
 }
+
 install_module () {
 	local folder=$1
 	info "Installing $folder"
