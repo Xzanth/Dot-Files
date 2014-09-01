@@ -1,5 +1,18 @@
 [user]
 	name = Jonas Osborn
 	email = jonas.w.osborn@gmail.com
+
 [push]
 	default = simple
+
+[url "git@git.xzanth.com:"]
+	insteadOf = "gx:"
+
+[url "http://git.xzanth.com/"]
+	insteadOf = "gx/"
+
+[url "git@github.com:"]
+	insteadOf = "gh:"
+
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
