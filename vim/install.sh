@@ -7,6 +7,3 @@ setup_vundle () {
 }
 
 if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then setup_vundle; fi
-
-if [ ! -d "$HOME/.vim/colors" ]; then mkdir -p "$HOME/.vim/colors"; fi
-link_file "$DOTFILES_ROOT/vim/molokai.vim" "$HOME/.vim/colors/molokai.vim"

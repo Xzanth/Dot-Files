@@ -158,9 +158,19 @@ install_module () {
 	local folder=$1
 	info "Installing $folder"
 	if [ -f "$DOTFILES_ROOT/$folder/install.sh" ]; then source $DOTFILES_ROOT/$folder/install.sh; fi
-	for src in $(find "$DOTFILES_ROOT/$folder" -maxdepth 2 -name '*.symlink')
+	for src in $(find "$DOTFILES_ROOT/$folder" -name '*.symlink')
 	do
-		dst="$HOME/.$(basename "${src%.*}")"
+		dst=${src##$DOTFILES_ROOT/}
+		dst=${dst#*/}
+		if [[ $dst == */* ]]
+		then
+			echo "has a dir"
+			dir=${dst%/*}
+			echo $dir
+			if [ ! -d "$HOME/.$dir" ]; then mkdir -p "$HOME/.$dir"; fi
+		fi
+		dst=${dst%.*}
+		dst=$HOME/.$dst
 		link_file "$src" "$dst"
 	done
 }
