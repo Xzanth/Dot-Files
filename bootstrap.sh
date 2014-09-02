@@ -164,9 +164,7 @@ install_module () {
 		dst=${dst#*/}
 		if [[ $dst == */* ]]
 		then
-			echo "has a dir"
 			dir=${dst%/*}
-			echo $dir
 			if [ ! -d "$HOME/.$dir" ]; then mkdir -p "$HOME/.$dir"; fi
 		fi
 		dst=${dst%.*}
