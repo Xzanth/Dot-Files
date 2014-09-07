@@ -21,7 +21,6 @@ Plugin 'sjl/gundo.vim'
 
 " Colorschemes
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'tomasr/molokai'
 
 call vundle#end()
 filetype plugin indent on
@@ -65,7 +64,7 @@ set undoreload=10000
 set visualbell
 set wrap
 
-" Colors  {{{
+" Colors [TODO]  {{{
 
 syntax on
 colorscheme molokai
@@ -789,7 +788,7 @@ augroup ft_vim
 
 	au FileType vim setlocal foldmethod=marker
 	au FileType help setlocal textwidth=78
-	au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+"	au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 augroup END
 
 " }}}
