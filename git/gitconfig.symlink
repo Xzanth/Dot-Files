@@ -16,3 +16,12 @@
 
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
+
+[credential]
+	helper = cache
+
+[diff]
+	tool = vimdiff
+
+[merge]
+	tool = vimdiff
