@@ -1,0 +1,22 @@
+#! /bin/sh
+
+bspc monitor -d i ii iii iv v vi vii viii ix x
+
+bspc config border_width		2
+bspc config -d focused window_gap 10
+bspc config top_padding			14
+bspc config split_ratio			0.50
+bspc config borderless_monocle	true
+bspc config gapless_monocle		true
+bspc config focus_follows_pointer true
+bspc config auto_alternate true
+bspc config auto_cancel true
+
+feh --bg-scale ~/data/downloads/pontoon.jpg
+
+if [ -e "$BSPWM_TREE" ] ; then
+	bspc restore -T "$BSPWM_TREE" -H "$BSPWM_HISTORY" -S "$BSPWM_STACK"
+	rm "$BSPWM_TREE" "$BSPWM_HISTORY" "$BSPWM_STACK"
+fi
+
+/home/xz/.config/bspwm/panel/panel &

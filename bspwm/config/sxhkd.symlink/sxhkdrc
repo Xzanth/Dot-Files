@@ -1,0 +1,159 @@
+# bspwm hotkeys ------------------------------------------------------------ {{{
+
+# Super + Alt + Esc = Reload
+# Super + Alt + Shift + Esc = Quit {{{
+super + alt + {_,shift + }Escape
+	{bspc query -T > "$BSPWM_TREE"; \
+		bspc query -H > "$BSPWM_HISTORY"; \
+			pkill panel; \
+				bspc quit,\
+	 bspc quit 1}
+# }}}
+
+# Close Window
+# Super + W {{{
+super + w
+	bspc window -c
+# }}}
+
+# Super + T = Toggle float
+# Super + Shift + T = Toggle Fullscreen {{{
+super + {_,shift +} f
+	bspc window -t {floating,fullscreen}
+# }}}
+
+# Toggle Private Node
+# Super + Alt + P {{{
+super + alt + r
+	bspc window -t private
+# }}}
+
+# Balance tree
+# Super + B {{{
+super + b
+	bspc desktop -B
+# }}}
+
+# Preselect window for splitting
+# Super + Ctrl + {H, J, K, L} {{{
+super + ctrl + {h,y,n,u}
+	bspc window -p {left,down,up,right}
+# }}}
+
+# Move windows into preselected position 
+# Super + Ctrl + Shift + {H, J, K, L} {{{
+super + ctrl + shift + {h,y,n,u}
+	bspc window -w {left.manual,down.manual,up.manual,right.manual}
+# }}}
+
+# Super + {H, J, K, L} = Select window
+# Super + Shift + {H, J, K, L} = Move window {{{
+super + {_,shift + }{h,y,n,u}
+	bspc window -{f,s} {left,down,up,right}
+# }}}
+
+# Move floating window
+# Super + Arrow Keys {{{
+super + {Left,Right,Up,Down}
+	xdo move {-x -20,-x +20,-y -20,-y +20}
+# }}}
+
+# Resize floating window
+# Super + Shift + Arrow Keys {{{
+super + shift + {Left,Right,Up,Down}
+	xdo resize {-w -20,-w +20,-h -20,-h +20}
+# }}}
+
+# Enable switching between 2 windows easy
+# Super + O/I {{{
+super + {semicolon,l}
+	bspc control --record-history off; \
+	bspc window {older,newer} -f; \
+	bspc control --record-history on
+# }}}
+
+# Swap window with the biggest
+# Super + M {{{
+super + m
+	bspc window -s biggest
+# }}}
+
+# Move into last manual split window
+# Super + Y {{{
+super + o
+	bspc window -w last.manual
+# }}}
+
+# Super + Comma = Mirror Horizontally
+# Super + Full stop = Mirror Vertically {{{
+super + {comma,period}
+	bspc desktop -F {horizontal,vertical}
+# }}}
+
+# Super + Shift + Comma = Rotate 90°
+# Super + Shift + Full stop = Rotate 270° {{{
+super + shift + {comma,period}
+	bspc desktop -R {90,270}
+# }}}
+
+# Super + p = Select previous desktop
+# Super + n = Select next desktop {{{
+super + {r,j}
+	bspc desktop -f {prev.occupied,next.occupied}
+# }}}
+
+# Keep window on screen
+# Super + Space {{{
+super + space
+	bspc window -t sticky
+# }}}
+
+# Lock window from closing
+# Super + Escape {{{
+super + Escape
+	bspc window -t locked
+# }}}
+
+# Set split ratio of windows
+# Super + Ctrl + Number {{{
+super + ctrl + {1-9}
+	bspc window -r 0.{1-9}
+# }}}
+
+# Super + Number = Focus Desktop
+# Super + Shift = Move to Desktop {{{
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,window -d} ^{1-9,10}
+# }}}
+
+# }}}
+# Mouse bindings ----------------------------------------------------------- {{{
+# Super + Button 1 = Move
+# Super + Button 2 = Resize side
+# Super + Button 3 = Resize corner
+
+super + button{1-3}
+	bspc pointer -g {move,resize_side,resize_corner}
+
+super + !button{1-3}
+	bspc pointer -t %i %i
+
+super + @button{1-3}
+	bspc pointer -u
+
+# }}}
+# Program Specific --------------------------------------------------------- {{{
+
+# Make sxhkd reload its configuration files:
+# Super + Ctrl + Esc {{{
+super + ctrl + Escape
+	pkill -USR1 -x sxhkd
+# }}}
+
+# Open urxvt
+# Super + Enter {{{
+super + Return
+	urxvt
+# }}}
+
+# }}}
