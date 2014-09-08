@@ -1,173 +1,92 @@
+" It's 2014, vim
 set nocompatible
-filetype off
 
-" Plugins ------------------------------------------------------------------ {{{
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" General Config ----------------------------------------------------------- {{{
 
-" Plugin manager
-Plugin 'gmarik/Vundle.vim'
+set autoread			" Reload files changed outside vim.
+set backspace=indent,eol,start	" Allow backspace in insert mode.
+set colorcolumn=+1		" Highlight the column after textwidth.
+set complete=.,w,b,u,t		" Describes how keyword completion works.
+				" Letter  Meaning
+				" ----------------------------------------------
+				" .	| Scan the current buffer.
+				" w	| Scan buffer from other windows.
+				" b	| Scan other loaded buffers.
+				" u	| Scan unloaded buffers in buffer list.
+				" t	| Complete Tags.
+				" ----------------------------------------------
+set completeopt=longest,menuone,preview		" Use a popup menu even with only one match, insert longest common text and preview extra info.
+set cursorline			" Highlight current line in normal mode.
+set encoding=utf-8		" Use UTF-8 as character encoding.
+set formatoptions=qrn1j		" Describe how automatic formatting is performed.
+				" Letter  Meaning
+				" ----------------------------------------------
+				" q	| Format with gq.
+				" r	| Automatically continue comments on new line after <Enter>.
+				" n	| Recognize and format numbered lists.
+				" 1	| Don't break a line after a one letter word, break before ideally.
+				" j	| When joining comments remove comment leader.
+				" ----------------------------------------------
+set gdefault			" g flag automatically on in substitutions, another g flag will turn it off.
+set hidden			" Hide buffers upon abandoning them.
+set history=1000		" Save 1000 command-lines in history.
+set hlsearch			" Highlight all the matches of the previous search.
+set ignorecase			" Ignore case in searches.
+set incsearch			" Show incremental matches as you type the search.
+set laststatus=2		" Always display statusline (powerline).
+set lazyredraw			" Don't redraw during macro/register playback.
+set list			" Make whitespace chars visible.
+set listchars=tab:▸\ ,extends:❯,precedes:❮	" Specify how whitespace chars are displayed. Extends and precedes indicate where a line has not wrapped
+set matchtime=3			" Show matching parenthesis for this many 1/10 secs.
+set modelines=0			" Don't check the beginning of files for modelines.
+set mouse=a			" Enable the mouse in all modes.
+set number			" Enable line numbers.
+set notimeout			" Don't timeout on :mappings and only timeout on keycodes if ttimeout is off.
+set ruler			" Show line and col number in command line.
+set scrolloff=3			" Always keep the cursor line this many lines from the top or bottom.
+set showbreak=↪			" Symbol to indicate line has broken only in view.
+set showcmd			" Show the partial command in the last line of screen and lenth of any visual selection.
+set showmatch			" When a bracket is inserted briefly jump to it's match if it is on screen.
+set showmode			" Show what mode vim is in (e.g. Insert or Visual).
+set sidescroll=10		" Minimum no. of col to scroll horizontally when wrap is off.
+set splitbelow			" Open horizontal splits below current window.
+set splitright			" Open vertical splits right of current window.
+set smartcase			" Only ignore case if it's all lowercase.
+set textwidth=80		" Width of text, auto-wraps if t is in formatoptions.
+set title			" Set title to titlestring or currently active buffer.
+set ttimeout			" Timeout on key codes.
+set ttimeoutlen=10		" Time in ms that is waited for a key code to complete.
+set ttyfast			" Changes setting to indicate a fast terminal connection.
+set undofile			" Save undo after a file closes.
+set undoreload=10000		" If a file has more than this many lines it won't be saved as an undo history when reloaded.
+set virtualedit+=block		" Enable positioning cursor where there is no char in visual block mode.
+set visualbell			" Don't play sounds.
+set wrap			" Wrap text round to another line in view.
 
-" Normal plugins
-Plugin 'bling/vim-airline'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-bufferline'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
-Plugin 'sjl/gundo.vim'
-
-" Colorschemes
-Plugin 'nanotech/jellybeans.vim'
-
-call vundle#end()
-filetype plugin indent on
-" }}}
-" Basic options ------------------------------------------------------------ {{{
-
-set autoindent
-set autoread
-set autowrite
-set backspace=indent,eol,start
-set colorcolumn=+1
-set cursorline
-set encoding=utf-8
-set formatoptions=qrn1j
-set hidden
-set history=1000
-set laststatus=2
-set lazyredraw
-set linebreak
-set list
-set listchars=tab:▸\ ,extends:❯,precedes:❮
-set matchtime=3
-set modelines=0
-set mouse=a
-set nu
-set ruler
-set shiftround
-set shiftwidth=4
-set showbreak=↪
-set showcmd
-set showmode
-set softtabstop=4
-set splitbelow
-set splitright
-set tabstop=4
-set textwidth=80
-set title
-set ttyfast
-set undofile
-set undoreload=10000
-set visualbell
-set wrap
-
-" Colors [TODO]  {{{
-
+" Turn on syntax highlighting.
 syntax on
-colorscheme molokai
-let g:molokai_html_link_underline = 0
 
-" Don't highlight lines longer than 800 char.
-set synmaxcol=800
+" Load plugins for specific filetypes
+filetype plugin on
 
-" Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-
-" }}}
-
-" Resize splits when the window is resized.
-au VimResized * :wincmd =
-
-" Spelling {{{
-
-set dictionary=/usr/share/dict/words
-" Use local dict for words that shouldn't be found in version control.
-set spellfile=~/.vim/custom-dictionary.utf-8.add,.vim-local-dictionary.utf-8.add
-" Use capitals to modify local dict
-nnoremap zG 2zg
-nnoremap zW 2zw
-
-" }}}
-" Timeout on key codes but not mappings.
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-
-" Fixes 'crontab: temp file must be edited in place.'
-set backupskip=/tmp/*,/private/tmp/*"
-
-" Better completion. {{{
-"
-" Don't look in included files for completion
-set complete=.,w,b,u,t
-" Use menu for anything with one or more matchings, show more info and only
-" insert longest common text.
-set completeopt=longest,menuone,preview
-
-" }}}
-" Leader
+" Change leader to a comma and local leader to backslash.
 let mapleader = ","
 let maplocalleader = "\\"
 
-" Cursorline {{{
-" Only show the cursorline in the current window in normal mode
-
-augroup cline
-	au!
-	au WinLeave,InsertEnter * set nocursorline
-	au WinEnter,InsertLeave * set cursorline
-augroup END
-
 " }}}
-" Trailing whitespace {{{
-" Only show when not in insert mode.
+" Vundle Initialization ---------------------------------------------------- {{{
+" Load all the plugins specified in ~/.vim/vundles.vim
 
-augroup trailing
-	au!
-	au InsertEnter * :set listchars-=trail:·
-	au InsertLeave * :set listchars+=trail:·
-augroup END
-
+if filereadable(expand("~/.vim/vundles.vim"))
+	source ~/.vim/vundles.vim
+endif
+ 
 " }}}
-" Wildmenu completion {{{
-
-set wildmenu
-" List all matches and complete until current common longest.
-set wildmode=list:longest
-
-set wildignore+=.hg,.git,.svn,.gitkeep					" Version control
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.webm	" Binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest		" Compiled object files
-set wildignore+=*.sw?									" Vim swap files
-set wildignore+=*.DS_Store								" OSX bullshit
-set wildignore+=*.orig									" Merge resolution files
-
-set wildignore+=*.aux,*.out,*.toc						" LaTeX  stuff
-
-set wildignore+=*.luac									" Lua byte code
-
-set wildignore+=migrations								" Django migrations
-set wildignore+=*.pyc									" Python byte code
-
-set wildignore+=*.cs.dso								" Compiled Torquescript
-
-" }}}
-" Line Return {{{
-" Makes vim return to the same line upon reopening a file
-
-augroup line_return
-	au!
-	au BufReadPost *
-		\ if line("'\"") > 0 && line("'\"") <= line("$") |
-		\	execute 'normal! g`"zvzz' |
-		\ endif
-augroup END
-
-" }}}
-" Backups {{{
+" Backups ------------------------------------------------------------------ {{{
+" Turn off swap files but store backups and undos in ~/.vim/tmp/. Save all of
+" these as the full path with forward slashes replaced with percent signs to
+" stop conflicts between the undo history and backups of files with the same
+" name.
 
 set backup
 set noswapfile
@@ -176,7 +95,7 @@ set undodir=~/.vim/tmp/undo//
 set backupdir=~/.vim/tmp/backup//
 set directory=~/.vim/tmp/swap//
 
-" Make folders automatically if the don't already exist.
+" Make these folders automatically if the don't already exist.
 if !isdirectory(expand(&undodir))
 	call mkdir(expand(&undodir), "p")
 endif
@@ -187,999 +106,54 @@ if !isdirectory(expand(&directory))
 	call mkdir(expand(&directory), "p")
 endif
 
-" }}}
+" Fixes 'crontab: temp file must be edited in place.'
+set backupskip=/tmp/*,/private/tmp/*"
 
 " }}}
-" Abbreviations ------------------------------------------------------------ {{{
+" Indentation -------------------------------------------------------------- {{{
+" By default use tabs with a width of 8 spaces.
 
-" Common unicode symbols.
-iabbrev udeg °
-iabbrev upi π
-iabbrev uuneq ≠
-iabbrev uapprox ≈
+set autoindent		" Automatically use the same indent from current line when making a new one.
+set noexpandtab		" Use tabs rather than spaces.
+set shiftround		" Round indents with < or > to multiples of shiftwidth.
+set shiftwidth=8	" Spaces per tab when shifting.
+set softtabstop=8	" Edit indents as though tabstop is set to this.
+set tabstop=8		" Number of spaces that a tab counts for.
 
-" }}}
-" Convenience mappings ----------------------------------------------------- {{{
-
-" Check if any buffers were edited outside of vim
-noremap <F1> :checktime<cr>
-inoremap <F1> <esc>:checktime<cr>
-
-" Sort lines
-nnoremap <leader>s vip:!sort<cr>
-vnoremap <leader>s :!sort<cr>
-
-" Create empty lines
-nnoremap <silent><leader>o :set paste<cr>mzo<Esc>`z:set nopaste<cr>
-nnoremap <silent><leader>O :set paste<cr>mzO<Esc>`z:set nopaste<cr>
-
-" Tabs
-nnoremap <C-Tab> :tabnext<cr>
-nnoremap <C-S-Tab> :tabprev<cr>
-
-" Windows
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-map <leader>q :q<cr>
-
-" Visual Mode */# from Scrooloose {{{
-function! s:VSetSearch()
-	let temp = @@
-	norm! gvy
-	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-	let @@ = temp
-endfunction
-
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+filetype indent on
 
 " }}}
-" Copy {{{
+" Completion --------------------------------------------------------------- {{{
+" Enable wildmenu completion so options are listed above the command line. List
+" all the matches and complete until current common longest
+" Don't look in included files for completion
+" Use menu for anything with one or more matchings, show more info and only
+" insert longest common text.
 
-function! g:CopyToX()
-	let old_z = @z
-	normal! gv"zy
-	call system('xsel -i', @z)
-	let @z = old_z
-endfunction
+set wildmenu
+set wildmode=list:longest
 
-noremap <leader>p :silent! set paste<cr>"*p:set nopaste<cr>
-nnoremap <leader>y viw:<c-u>call g:CopyToX()<cr>
-vnoremap <leader>y :<c-u>call g:CopyToX()<cr>
+" Ignore files we don't want vim to deal with.
+set wildignore+=.hg,.git,.svn,.gitkeep			" Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.webm	" Binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest	" Compiled object files
+set wildignore+=*.sw?					" Vim swap files
+set wildignore+=*.DS_Store				" OSX bullshit
+set wildignore+=*.orig					" Merge resolution files
+set wildignore+=*sass-cache*				" Sass stuff
 
-" }}}
+set wildignore+=*.aux,*.out,*.toc			" LaTeX  stuff
 
-" Rebuild Ctags (mnemonic RC -> CR -> <cr>)
-nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
+set wildignore+=*.luac					" Lua byte code
 
-" Find out what leads to the syntax colours for what the cursor is on.
-nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-						\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-						\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+set wildignore+=migrations				" Django migrations
+set wildignore+=*.pyc					" Python byte code
 
-" Remove trailing whitespace
-nnoremap <leader>ww mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-
-" Send visual selection to paste.xzanth.com
-" TODO
-
-" Select entire buffer.
-nnoremap vaa ggvGg_
-nnoremap Vaa ggVG
-
-" Transpose last word to uppercase.
-inoremap <C-u> <esc>mzgUiw`za
-
-" Zoom to head level.
-nnoremap zh mzzt10<c-u>`z
-
-" Linewise selection of what you just pasted.
-nnoremap <leader>V V`]
-
-" Indent/dedent/autoindent what you just pasted.
-nnoremap <lt>> V`]<
-nnoremap ><lt> V`]>
-nnoremap =- V`]=
-
-" Keep the cursor in place while joining lines
-nnoremap J mzJ`z
-
-" Join an entire paragraph
-nnoremap <leader>J mzvipJ`z
-
-" Split line
-nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
-
-" HTML tag closing
-inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
-
-" Open a quickfix window for the last search.
-nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/ %'<cr>:copen<cr>
-
-" Ack for the last search.
-nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<cr>
-
-" Select the entire line charwise
-nnoremap vv ^vg_
-
-" use w!! when forgotten to sudo
-cnoremap w!! w !sudo tee % >/dev/null
-
-" Toggle paste
-nnoremap <F6> :set paste!<cr>
-
-" Toggle [i]nvisible characters
-nnoremap <leader>i :set list!<cr>
-
-" Source
-vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
-nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourcedline.'<cr>
-
-" Zip Right
-nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
+set wildignore+=*.cs.dso				" Compiled Torquescript
 
 " }}}
-" Searching and Movement --------------------------------------------------- {{{
+" Custom Settings ---------------------------------------------------------- {{{
 
-" Use very magic searching
-nnoremap / /\v
-vnoremap / /\v
-
-set ignorecase
-set smartcase
-set incsearch
-set showmatch
-set hlsearch
-set gdefault
-
-set scrolloff=3
-set sidescroll=1
-set sidescroll=10
-
-set virtualedit+=block
-
-noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
-
-" DUNDERSTAND
-" Jumping to tags
-function! JumpToTag()
-	execute "normal! \<c-]>mzzMzvzz15\<c-e>"
-	execute "keepjumps normal! `z"
-	Pulse
-endfunction
-function! JumpToTagInSplit()
-	execute "normal! \<c-w>v\<c-]>mzzMzvzz15\<c-e>"
-	execute "keepjumps normal! `z"
-	Pulse
-endfunction
-nnoremap <c-]> :silent! call JumpToTag()<cr>
-nnoremap <c-\> :silent! call JumpToTagInSplit()<cr>
-
-" Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-" Do the same when jumping around
-nnoremap g; g;zz
-nnoremap g, g,zz
-nnoremap <c-o> <c-o>zz
-
-" Go down visible lines
-noremap j gj
-noremap k gk
-noremap gj j
-noremap gk k
-
-" Split window vertically easily
-noremap <leader>v <C-w>v
-
-" }}}
-" Folding ------------------------------------------------------------------ {{{
-
-set foldlevelstart=0
-
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
-
-" Make zO recursively open whatever fold we're in, even if it's partially open.
-nnoremap zO zczO
-
-" "Focus" the current line.  Basically:
-"
-" 1. Close all folds.
-" 2. Open just the folds containing the current line.
-" 3. Move the line to a little bit (15 lines) above the center of the screen.
-" 4. Pulse the cursor line.  My eyes are bad.
-"
-" This mapping wipes out the z mark, which I never use.
-"
-" I use :sus for the rare times I want to actually background Vim.
-nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
-
-function! MyFoldText() " {{{
-	let line = getline(v:foldstart)
-
-	let nucolwidth = &fdc + &number * &numberwidth
-	let windowwidth = winwidth(0) - nucolwidth - 3
-	let foldedlinecount = v:foldend - v:foldstart
-
-	" expand tabs into spaces
-	let onetab = strpart('			', 0, &tabstop)
-	let line = substitute(line, '\t', onetab, 'g')
-
-	let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-	let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-	return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
-set foldtext=MyFoldText()
-
-" }}}
-" Filetype-specific -------------------------------------------------------- {{{
-
-" Assembly {{{
-
-augroup ft_asm
-	au!
-	au FileType asm setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
-augroup END
-
-" }}}
-" C {{{
-
-augroup ft_c
-	au!
-	au FileType c setlocal foldmethod=marker foldmarker={,}
-augroup END
-
-" }}}
-" Common Lisp {{{
-
-" function! SendToTmuxStripped(text)
-"	  call SendToTmux(substitute(a:text, '\v\n*$', '', ''))
-" endfunction
-function! SetLispWords()
-	if exists("g:did_set_lisp_words")
-		return
-	endif
-
-	let g:did_set_lisp_words = 1
-
-	set lispwords+=switch
-	set lispwords+=cswitch
-	set lispwords+=eswitch
-endfunction
-
-augroup ft_commonlisp
-	au!
-
-	au BufNewFile,BufRead *.asd setfiletype lisp
-
-	au FileType lisp call SetLispWords()
-
-	" Set up some basic tslime mappings until I shave the fuckin
-	" Fireplace/Common Lisp yak.
-	"
-	" key  desc					  mnemonic
-	" \t - connect tslime		  [t]slime
-	" \f - send current form	  [f]orm
-	" \e - send top-level form	  [e]val
-	" \r - send entire file		  [r]eload file
-	" \c - send ctrl-l			  [c]lear
-
-	" Send the current form to the REPL
-	au FileType lisp nnoremap <buffer> <silent> <localleader>f :let lisp_tslime_view = winsaveview()<cr>vab"ry:call SendToTmuxStripped(@r)<cr>:call winrestview(lisp_tslime_view)<cr>
-
-	" Send the current top-level form to the REPL
-	au FileType lisp nnoremap <buffer> <silent> <localleader>e :let lisp_tslime_view = winsaveview()<cr>:silent! normal! l<cr>:call PareditFindDefunBck()<cr>vab"ry:call SendToTmuxStripped(@r)<cr>:call winrestview(lisp_tslime_view)<cr>
-
-	" Send the entire buffer to the REPL
-	au FileType lisp nnoremap <buffer> <silent> <localleader>r :let lisp_tslime_view = winsaveview()<cr>ggVG"ry:call SendToTmuxStripped(@r)<cr>:call winrestview(lisp_tslime_view)<cr>
-
-	" Clear the REPL
-	au FileType lisp nnoremap <buffer> <silent> <localleader>c :call SendToTmuxRaw("")<cr>
-
-	au FileType lisp RainbowParenthesesActivate
-	au syntax lisp RainbowParenthesesLoadRound
-	au syntax lisp RainbowParenthesesLoadSquare
-	au syntax lisp RainbowParenthesesLoadBraces
-
-	au FileType lisp silent! call TurnOnLispFolding()
-
-	au FileType lisp noremap <buffer> () :<c-u>call PareditWrap("(", ")")<cr>
-	au FileType lisp noremap <buffer> )( :<c-u>call PareditSplice()<cr>
-	au FileType lisp noremap <buffer> (( :<c-u>call PareditMoveLeft()<cr>
-	au FileType lisp noremap <buffer> )) :<c-u>call PareditMoveRight()<cr>
-	au FileType lisp noremap <buffer> (j :<c-u>call PareditJoin()<cr>
-	au FileType lisp noremap <buffer> (s :<c-u>call PareditSplit()<cr>
-	au FileType lisp noremap <buffer> )j :<c-u>call PareditJoin()<cr>
-	au FileType lisp noremap <buffer> )s :<c-u>call PareditSplit()<cr>
-	au FileType lisp noremap <buffer> [[ :<c-u>call PareditSmartJumpOpening(0)<cr>
-	au FileType lisp noremap <buffer> ]] :<c-u>call PareditSmartJumpClosing(0)<cr>
-	" ))
-
-	" Indent top-level form.
-	au FileType lisp nmap <buffer> <localleader>= mz99[(v%='z
-	" ])
-augroup END
-
-" }}}
-" CSS and LessCSS {{{
-
-augroup ft_css
-	au!
-
-	au BufNewFile,BufRead *.less setlocal filetype=less
-
-	au Filetype less,css setlocal foldmethod=marker
-	au Filetype less,css setlocal foldmarker={,}
-	au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
-	au Filetype less,css setlocal iskeyword+=-
-
-	" Use <leader>S to sort properties.  Turns this:
-	"
-	"	  p {
-	"		  width: 200px;
-	"		  height: 100px;
-	"		  background: red;
-	"
-	"		  ...
-	"	  }
-	"
-	" into this:
-
-	"	  p {
-	"		  background: red;
-	"		  height: 100px;
-	"		  width: 200px;
-	"
-	"		  ...
-	"	  }
-	au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
-	" Make <cr> insert a pair of brackets in such a way that the cursor is correctly
-	" positioned inside of them AND the following code doesn't get unfolded.
-	au BufNewFile,BufRead *.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
-augroup END
-" }
-" }}}
-" Django {{{
-
-augroup ft_django
-	au!
-
-	au BufNewFile,BufRead urls.py			setlocal nowrap
-	au BufNewFile,BufRead urls.py			normal! zR
-	au BufNewFile,BufRead dashboard.py		normal! zR
-	au BufNewFile,BufRead local_settings.py normal! zR
-
-	au BufNewFile,BufRead admin.py	   setlocal filetype=python.django
-	au BufNewFile,BufRead urls.py	   setlocal filetype=python.django
-	au BufNewFile,BufRead models.py    setlocal filetype=python.django
-	au BufNewFile,BufRead views.py	   setlocal filetype=python.django
-	au BufNewFile,BufRead settings.py  setlocal filetype=python.django
-	au BufNewFile,BufRead settings.py  setlocal foldmethod=marker
-	au BufNewFile,BufRead forms.py	   setlocal filetype=python.django
-	au BufNewFile,BufRead common_settings.py  setlocal filetype=python.django
-	au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
-augroup END
-
-" }}}
-" HTML, Django, Jinja, Dram {{{
-
-let g:html_indent_tags = ['p', 'li']
-
-augroup ft_html
-	au!
-
-	au BufNewFile,BufRead *.html setlocal filetype=htmldjango
-	au BufNewFile,BufRead *.dram setlocal filetype=htmldjango
-
-	au FileType html,jinja,htmldjango setlocal foldmethod=manual
-
-	" Use <localleader>f to fold the current tag.
-	au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
-
-	" Use <localleader>t to fold the current templatetag.
-	au FileType html,jinja,htmldjango nmap <buffer> <localleader>t viikojozf
-
-	" Indent tag
-	au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
-
-	" Django tags
-	au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
-
-	" Django variables
-	au FileType jinja,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
-augroup END
-
-" }}}
-" Java {{{
-
-augroup ft_java
-	au!
-
-	au FileType java setlocal foldmethod=marker
-	au FileType java setlocal foldmarker={,}
-augroup END
-
-" }}}
-" Javascript {{{
-
-augroup ft_javascript
-	au!
-
-	au FileType javascript setlocal foldmethod=marker
-	au FileType javascript setlocal foldmarker={,}
-	au FileType javascript call MakeSpacelessBufferIabbrev('clog', 'console.log();<left><left>')
-
-	" Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
-	" positioned inside of them AND the following code doesn't get unfolded.
-	au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
-	" }
-
-	" Prettify a hunk of JSON with <localleader>p
-	au FileType javascript nnoremap <buffer> <localleader>p ^vg_:!python -m json.tool<cr>
-	au FileType javascript vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
-augroup END
-
-" }}}
-" Markdown {{{
-
-augroup ft_markdown
-	au!
-
-	au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
-
-	" Use <localleader>1/2/3 to add headings.
-	au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
-	au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
-	au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
-	au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
-
-	au Filetype markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
-	au Filetype markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
-augroup END
-
-" }}}
-" Nginx {{{
-
-augroup ft_nginx
-	au!
-
-	au BufRead,BufNewFile /etc/nginx/conf/*						 set ft=nginx
-	au BufRead,BufNewFile /etc/nginx/sites-available/*			 set ft=nginx
-	au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
-	au BufRead,BufNewFile vhost.nginx							 set ft=nginx
-
-	au FileType nginx setlocal foldmethod=marker foldmarker={,}
-augroup END
-
-" }}}
-" Postgresql {{{
-
-augroup ft_postgres
-	au!
-
-	au BufNewFile,BufRead *.sql set filetype=pgsql
-	au BufNewFile,BufRead *.pgsql set filetype=pgsql
-
-	au FileType pgsql set foldmethod=indent
-	au FileType pgsql set softtabstop=2 shiftwidth=2
-	au FileType pgsql setlocal commentstring=--\ %s comments=:--
-
-	" Send to tmux with localleader e
-	au FileType pgsql nnoremap <buffer> <silent> <localleader>e :let psql_tslime_view = winsaveview()<cr>vip"ry:call SendToTmux(@r)<cr>:call winrestview(psql_tslime_view)<cr>
-
-	" kill pager with q
-	au FileType pgsql nnoremap <buffer> <silent> <localleader>q :call SendToTmuxRaw("q")<cr>
-augroup END
-
-" }}}
-" Puppet {{{
-
-augroup ft_puppet
-	au!
-
-	au Filetype puppet setlocal foldmethod=marker
-	au Filetype puppet setlocal foldmarker={,}
-augroup END
-
-" }}}
-" Python {{{
-
-augroup ft_python
-	au!
-
-	au FileType python setlocal define=^\s*\\(def\\\\|class\\)
-	au FileType man nnoremap <buffer> <cr> :q<cr>
-
-	" Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
-	" override this in a normal way, could you?
-	au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
-
-	au FileType python iabbrev <buffer> afo assert False, "Okay"
-augroup END
-
-" }}}
-" QuickFix {{{
-
-augroup ft_quickfix
-	au!
-	au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
-augroup END
-
-" }}}
-" ReStructuredText {{{
-
-augroup ft_rest
-	au!
-
-	au Filetype rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
-	au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
-	au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
-	au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
-augroup END
-
-" }}}
-" Ruby {{{
-
-augroup ft_ruby
-	au!
-	au Filetype ruby setlocal foldmethod=syntax
-	au BufRead,BufNewFile Capfile setlocal filetype=ruby
-augroup END
-
-" }}}
-" Scala {{{
-
-function! DispatchMavenTest()
-	let view = winsaveview()
-	let zreg = @z
-
-	" Move to the top of the file
-	normal! gg
-
-	" Find the spec name
-	call search('\vclass (.*Spec)')
-	normal! w"zyiw
-
-	let spec = @z
-
-	execute "Dispatch mvn -q -B test -Dtest=" . spec
-
-	let @z = zreg
-	call winrestview(view)
-endfunction
-
-augroup ft_scala
-	au!
-	au Filetype scala setlocal foldmethod=marker foldmarker={,}
-	au Filetype scala setlocal textwidth=100
-	au Filetype scala setlocal shiftwidth=2
-	au Filetype scala compiler maven
-	au Filetype scala let b:dispatch = 'mvn -B package install'
-	au Filetype scala nnoremap <buffer> <localleader>s mz:%!sort-scala-imports<cr>`z
-	au Filetype scala nnoremap <buffer> M :call scaladoc#Search(expand("<cword>"))<cr>
-	au Filetype scala vnoremap <buffer> M "ry:call scaladoc#Search(@r)<cr>
-	au Filetype scala nnoremap <buffer> <localleader>t :call DispatchMavenTest()<cr>
-	au Filetype scala nmap <buffer> <localleader>( ysiwbi
-	au Filetype scala nmap <buffer> <localleader>[ ysiwri
-	")]
-augroup END
-
-" }}}
-" Standard In {{{
-
-augroup ft_stdin
-	au!
-
-	" Treat buffers from stdin (e.g.: echo foo | vim -) as scratch.
-	au StdinReadPost * :set buftype=nofile
-augroup END
-
-" }}}
-" Vim {{{
-
-augroup ft_vim
-	au!
-
-	au FileType vim setlocal foldmethod=marker
-	au FileType help setlocal textwidth=78
-"	au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
-augroup END
-
-" }}}
-" YAML {{{
-
-augroup ft_yaml
-	au!
-
-	au FileType yaml set shiftwidth=2
-augroup END
-
-" }}}
-" XML {{{
-
-augroup ft_xml
-	au!
-
-	au FileType xml setlocal foldmethod=manual
-
-	" Use <localleader>f to fold the current tag.
-	au FileType xml nnoremap <buffer> <localleader>f Vatzf
-
-	" Indent tag
-	au FileType xml nnoremap <buffer> <localleader>= Vat=
-augroup END
-
-" }}}
-
-" }}}
-" Plugin Settings ---------------------------------------------------------- {{{
-
-" Ack {{{
-
-nnoremap <leader>a :Ack!<space>
-let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
-
-" }}}
-" Airline {{{
-
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'powerlineish'
-
-
-" }}}
-" CtrlP {{{
-
-nnoremap <leader>f :CtrlP<cr>
-nnoremap <leader>b :CtrlPBuffer<cr>
-
-" }}}
-" Fugitive {{{
-
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>ga :Gadd<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gco :Gcheckout<cr>
-nnoremap <leader>gci :Gcommit<cr>
-nnoremap <leader>gm :Gmove<cr>
-nnoremap <leader>gr :Gremove<cr>
-
-augroup ft_fugitive
-    au!
-
-    au BufNewFile,BufRead .git/index setlocal nolist
-augroup END
-
-"}}}
-" GitGutter {{{
-let g:gitgutter_enabled = 0
-nnoremap <leader>gg :GitGutterToggle<cr>
-" }}}
-" Gundo {{{
-
-nnoremap <leader>u :GundoToggle<cr>
-
-"}}}
-" Syntastic {{{
-
-let g:syntastic_enable_signs = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_jump = 0
-let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-
-nnoremap <leader>C :SyntasticCheck<cr>
-" }}}
-" Tagbar {{{
-
-nnoremap <leader>t :TagbarToggle<cr>
-
-" }}}
-
-" }}}
-" Text Objects ------------------------------------------------------------- {{{
-
-" Next and Last {{{
-onoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
-xnoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
-onoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
-xnoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
-
-onoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
-xnoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
-onoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
-xnoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
-
-function! s:NextTextObject(motion, dir)
-	let c = nr2char(getchar())
-	let d = ''
-
-	if c ==# "b" || c ==# "(" || c ==# ")"
-		let c = "("
-	elseif c ==# "B" || c ==# "{" || c ==# "}"
-		let c = "{"
-	elseif c ==# "r" || c ==# "[" || c ==# "]"
-		let c = "["
-	elseif c ==# "'"
-		let c = "'"
-	elseif c ==# '"'
-		let c = '"'
-	else
-		return
-	endif
-
-	" Find the next opening-whatever.
-	execute "normal! " . a:dir . c . "\<cr>"
-
-	if a:motion ==# 'a'
-		" If we're doing an 'around' method, we just need to select around it
-		" and we can bail out to Vim.
-		execute "normal! va" . c
-	else
-		" Otherwise we're looking at an 'inside' motion.  Unfortunately these
-		" get tricky when you're dealing with an empty set of delimiters because
-		" Vim does the wrong thing when you say vi(.
-
-		let open = ''
-		let close = ''
-
-		if c ==# "(" 
-			let open = "("
-			let close = ")"
-		elseif c ==# "{"
-			let open = "{"
-			let close = "}"
-		elseif c ==# "["
-			let open = "\\["
-			let close = "\\]"
-		elseif c ==# "'"
-			let open = "'"
-			let close = "'"
-		elseif c ==# '"'
-			let open = '"'
-			let close = '"'
-		endif
-
-		" We'll start at the current delimiter.
-		let start_pos = getpos('.')
-		let start_l = start_pos[1]
-		let start_c = start_pos[2]
-
-		" Then we'll find it's matching end delimiter.
-		if c ==# "'" || c ==# '"'
-			" searchpairpos() doesn't work for quotes, because fuck me.
-			let end_pos = searchpos(open)
-		else
-			let end_pos = searchpairpos(open, '', close)
-		endif
-
-		let end_l = end_pos[0]
-		let end_c = end_pos[1]
-
-		call setpos('.', start_pos)
-
-		if start_l == end_l && start_c == (end_c - 1)
-			" We're in an empty set of delimiters.	We'll append an "x"
-			" character and select that so most Vim commands will do something
-			" sane.  v is gonna be weird, and so is y.	Oh well.
-			execute "normal! ax\<esc>\<left>"
-			execute "normal! vi" . c
-		elseif start_l == end_l && start_c == (end_c - 2)
-			" We're on a set of delimiters that contain a single, non-newline
-			" character.  We can just select that and we're done.
-			execute "normal! vi" . c
-		else
-			" Otherwise these delimiters contain something.  But we're still not
-			" sure Vim's gonna work, because if they contain nothing but
-			" newlines Vim still does the wrong thing.	So we'll manually select
-			" the guts ourselves.
-			let whichwrap = &whichwrap
-			set whichwrap+=h,l
-
-			execute "normal! va" . c . "hol"
-
-			let &whichwrap = whichwrap
-		endif
-	endif
-endfunction
-
-" }}}
-" Numbers {{{
-
-onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
-xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
-onoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
-xnoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
-onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
-xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
-
-function! s:NumberTextObject(whole)
-	let num = '\v[0-9]'
-
-	" If the current char isn't a number, walk forward.
-	while getline('.')[col('.') - 1] !~# num
-		normal! l
-	endwhile
-
-	" Now that we're on a number, start selecting it.
-	normal! v
-
-	" If the char after the cursor is a number, select it.
-	while getline('.')[col('.')] =~# num
-		normal! l
-	endwhile
-
-	" If we want an entire word, flip the select point and walk.
-	if a:whole
-		normal! o
-
-		while col('.') > 1 && getline('.')[col('.') - 2] =~# num
-			normal! h
-		endwhile
-	endif
-endfunction
-
-" }}}
-
-" }}}
-" Mini-plugins ------------------------------------------------------------- {{{
-
-" Pulse Line {{{
-
-function! s:Pulse() " {{{
-	redir => old_hi
-		silent execute 'hi CursorLine'
-	redir END
-	let old_hi = split(old_hi, '\n')[0]
-	let old_hi = substitute(old_hi, 'xxx', '', '')
-
-	let steps = 8
-	let width = 1
-	let start = width
-	let end = steps * width
-	let color = 233
-
-	for i in range(start, end, width)
-		execute "hi CursorLine ctermbg=" . (color + i)
-		redraw
-		sleep 6m
-	endfor
-	for i in range(end, start, -1 * width)
-		execute "hi CursorLine ctermbg=" . (color + i)
-		redraw
-		sleep 6m
-	endfor
-
-	execute 'hi ' . old_hi
-endfunction " }}}
-command! -nargs=0 Pulse call s:Pulse()
-
-" }}}
-" Synstack {{{
-
-function! SynStack()
-  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
-endfunc
-
-nnoremap <F7> :call SynStack()<CR>
-
-" }}}
-" [I]ndent Guides {{{
-
-let g:indentguides_state = 0
-function! IndentGuides() " {{{
-	if g:indentguides_state
-		let g:indentguides_state = 0
-		2match None
-	else
-		let g:indentguides_state = 1
-		execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
-	endif
-endfunction " }}}
-hi def IndentGuides guibg=#303030 ctermbg=234
-nnoremap <leader>I :call IndentGuides()<cr>
-
-" }}}
-" Highlight Word {{{
-
-function! HiInterestingWord(n) " {{{
-	" Save our location.
-	normal! mz
-
-	" Yank the current word into the z register.
-	normal! "zyiw
-
-	" Calculate an arbitrary match ID.	Hopefully nothing else is using it.
-	let mid = 86750 + a:n
-
-	" Clear existing matches, but don't worry if they don't exist.
-	silent! call matchdelete(mid)
-
-	" Construct a literal pattern that has to match at boundaries.
-	let pat = '\V\<' . escape(@z, '\') . '\>'
-
-	" Actually match the words.
-	call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-	" Move back to our original location.
-	normal! `z
-endfunction " }}}
-
-" Mappings {{{
-
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-
-" }}}
-" Default Highlights {{{
-
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-
-" }}}
-
-" }}}
-" Ack Motions {{{
-
-nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
-
-nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
-xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
-
-function! s:CopyMotionForType(type)
-    if a:type ==# 'v'
-        silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'char'
-        silent execute "normal! `[v`]y"
-    endif
-endfunction
-
-function! s:AckMotion(type) abort
-    let reg_save = @@
-
-    call s:CopyMotionForType(a:type)
-
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
-
-    let @@ = reg_save
-endfunction
-
-" }}}
-" Shell {{{
-
-function! s:ExecuteInShell(command) " {{{
-	let command = join(map(split(a:command), 'expand(v:val)'))
-	let winnr = bufwinnr('^' . command . '$')
-	silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-	setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonu
-	echo 'Execute ' . command . '...'
-	silent! execute 'silent %!'. command
-	silent! redraw
-	silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-	silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
-    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
-    silent! execute 'AnsiEsc'
-    echo 'Shell command ' . command . ' executed.'
-endfunction " }}}
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-nnoremap <leader>! :Shell<space>
-
-" }}}
+so ~/.vim/settings.vim
 
 " }}}

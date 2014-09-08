@@ -1,0 +1,7 @@
+" Plugins related to searching the buffer or directories.
+Plugin 'kien/ctrlp.vim'		    " Fuzzy search for files and buffers easily.
+Plugin 'mileszs/ack.vim'	    " Ack a code base.
+Plugin 'rking/ag.vim'		    " Ag a code base.
+Plugin 'skwp/greplace.vim'	    " Search and replace multiple files easily.
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'Lokaltog/vim-easymotion'    " Move through a buffer easily.

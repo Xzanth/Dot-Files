@@ -1,0 +1,4 @@
+" Plugins designed to help with working a larger project.
+Plugin 'majutsushi/tagbar'	" CTag browser panel.
+Plugin 'scrooloose/syntastic'	" Syntax checker.
+Plugin 'sjl/gundo.vim'		" Undo history browser.

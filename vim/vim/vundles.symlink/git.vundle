@@ -1,0 +1,7 @@
+" Plugins to integrate vim and git
+Plugin 'airblade/vim-gitgutter'		" Gutter with signs of whether text has been added, removed or changed.
+Plugin 'tpope/vim-fugitive'		" Wrapper for git.
+Plugin 'tpope/vim-git'			" Updated filetype and syntax settings for git related files.
+
+" Add when I have time to learn to use
+" Plugin 'gregsexton/gitv'
