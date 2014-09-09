@@ -1,3 +1,4 @@
+" Fold javascript files at braces.
 setlocal foldmethod=marker
 setlocal foldmarker={,}
 
@@ -12,3 +13,4 @@ inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
 " Prettify a hunk of JSON with <localleader>p
 nnoremap <buffer> <localleader>p ^vg_:!python -m json.tool<cr>
 vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+
