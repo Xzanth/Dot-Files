@@ -6,3 +6,5 @@ Plugin 'godlygeek/tabular'		" Line stuff up vertically easily.
 Plugin 'chrisbra/NrrwRgn'		" Open the selection for editing as a buffer.
 Plugin 'bogado/file-line'		" Enable opening file at a given line no.
 Plugin 'tpope/vim-surround'		" Change, add, remove surroundings.
+Plugin 'MarcWeber/vim-addon-mw-utils'	" Required by something.
+Plugin 'tomtom/tlib_vim'		" Required by snipmate.

@@ -4,3 +4,4 @@ Plugin 'kana/vim-textobj-function'		" Functions as text objects.
 Plugin 'thinca/vim-textobj-function-javascript'	" Adds javascript support to function text objects.
 Plugin 'lucapette/vim-textobj-underscore'	" Words separated with underscores.
 Plugin 'vim-scripts/argtextobj.vim'		" Arguments as text objects.
+Plugin 'kana/vim-textobj-user'			" Facilitate easy creation of text objects.

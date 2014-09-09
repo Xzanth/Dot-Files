@@ -2,7 +2,6 @@
 Plugin 'bling/vim-airline'			" Pretty colors and symbols for status line.
 Plugin 'chrisbra/color_highlight.git'		" Highlight Hex color codes.
 Plugin 'bling/vim-bufferline'			" Show list of buffers in status line.
-Plugin 'xsunsmile/showmarks.git'		" Show where marks are made in the file.
 Plugin 'nathanaelkane/vim-indent-guides'	" Show guides as to where indent markers are.
 
 " Colorschemes
