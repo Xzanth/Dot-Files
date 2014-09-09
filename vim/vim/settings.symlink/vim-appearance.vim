@@ -21,3 +21,4 @@ augroup END
 
 " }}}
 
+colorscheme molokai
