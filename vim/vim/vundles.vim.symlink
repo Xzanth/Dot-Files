@@ -13,7 +13,10 @@ call vundle#begin()
 " let Vundle manage Vundle (required)
 Plugin 'gmarik/vundle'
 
+runtime miscellaneous.vundle
 runtime appearance.vundle
+runtime textobjects.vundle
+runtime languages.vundle
 runtime git.vundle
 runtime search.vundle
 runtime project.vundle
