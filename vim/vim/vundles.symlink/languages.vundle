@@ -1,0 +1,8 @@
+" Plugins related to specific languages or language in general.
+Plugin 'briancollins/vim-jst'		" Syntax and Indent for jst/ejs.
+Plugin 'pangloss/vim-javascript'	" Javascript syntax and indent plugins.
+Plugin 'othree/javascript-libraries-syntax.vim'	" Syntax for javascript libraries.
+Plugin 'garbas/vim-snipmate'		" Text snippets.
+Plugin 'nelstrom/vim-markdown-preview'	" Preview markdown in browser.
+Plugin 'skwp/vim-html-escape'		" Escape html.
+Plugin 'scrooloose/syntastic'		" Syntax checker.
