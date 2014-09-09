@@ -6,4 +6,3 @@ nnoremap <buffer> <localleader>f Vatzf
 
 " Indent tag
 nnoremap <buffer> <localleader>= Vat=
-

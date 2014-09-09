@@ -15,4 +15,3 @@ inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
 " Django variables
 inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
-

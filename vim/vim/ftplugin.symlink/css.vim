@@ -8,4 +8,3 @@ setlocal iskeyword+=-
 
 " Use <leader>S to sort properties.  Turns this:
 nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-

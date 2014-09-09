@@ -59,4 +59,3 @@ noremap <buffer> ]] :<c-u>call PareditSmartJumpClosing(0)<cr>
 
 " Indent top-level form.
 nmap <buffer> <localleader>= mz99[(v%='z
-
