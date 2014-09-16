@@ -51,6 +51,7 @@ set showmode			" Show what mode vim is in (e.g. Insert or Visual).
 set sidescroll=10		" Minimum no. of col to scroll horizontally when wrap is off.
 set splitbelow			" Open horizontal splits below current window.
 set splitright			" Open vertical splits right of current window.
+set synmaxcol=800		" Don't highlight lines longer than 800 columns.
 set smartcase			" Only ignore case if it's all lowercase.
 set textwidth=80		" Width of text, auto-wraps if t is in formatoptions.
 set title			" Set title to titlestring or currently active buffer.
@@ -72,6 +73,9 @@ filetype plugin on
 " Change leader to a comma and local leader to backslash.
 let mapleader = ","
 let maplocalleader = "\\"
+
+" Resize splits when the window is resized.
+au VimResized * :wincmd =
 
 " }}}
 " Vundle Initialization ---------------------------------------------------- {{{

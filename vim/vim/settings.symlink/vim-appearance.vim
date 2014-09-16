@@ -21,4 +21,11 @@ augroup END
 
 " }}}
 
+" Highlight VCS conflict markers.
+match ErrorMsg '^\)<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" Use molokai as default color scheme.
 colorscheme molokai
+
+" Don't underline html links.
+let g:molokai_html_link_underline = 0
