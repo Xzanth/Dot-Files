@@ -1,0 +1,7 @@
+" Plugins designed to help with working a larger project.
+Plugin 'scrooloose/nerdtree.git'	" A file explorer in tree format.
+Plugin 'jistr/vim-nerdtree-tabs'	" Have nerdtree interact with tabs sensibly.
+Plugin 'majutsushi/tagbar'		" CTag browser panel.
+Plugin 'xolox/vim-easytags'		" Keep Ctags up to date in background.
+Plugin 'xolox/vim-session'		" Manage sessions for vim.
+Plugin 'sjl/gundo.vim'			" Undo history browser.

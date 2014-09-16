@@ -1,0 +1,10 @@
+" Plugins to change the appearance of vim
+Plugin 'bling/vim-airline'			" Pretty colors and symbols for status line.
+Plugin 'chrisbra/color_highlight.git'		" Highlight Hex color codes.
+Plugin 'bling/vim-bufferline'			" Show list of buffers in status line.
+Plugin 'nathanaelkane/vim-indent-guides'	" Show guides as to where indent markers are.
+
+" Colorschemes
+Plugin 'morhetz/gruvbox'			" Retro pastel colourscheme.
+Plugin 'skwp/vim-colors-solarized'		" Designed to be easy on the eyes.
+Plugin 'nanotech/jellybeans.vim'		" Colourful and dark.

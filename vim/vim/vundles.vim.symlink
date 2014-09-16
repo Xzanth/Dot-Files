@@ -1,0 +1,25 @@
+" ========================================
+" Vim plugin configuration
+" ========================================
+"
+" This file contains the list of plugin installed using vundle plugin manager.
+" Filetype off is required by vundle
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/vundles/
+call vundle#begin()
+
+" let Vundle manage Vundle (required)
+Plugin 'gmarik/vundle'
+
+runtime miscellaneous.vundle
+runtime appearance.vundle
+runtime textobjects.vundle
+runtime languages.vundle
+runtime git.vundle
+runtime search.vundle
+runtime project.vundle
+
+call vundle#end()
+filetype plugin indent on
