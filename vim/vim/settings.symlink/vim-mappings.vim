@@ -84,7 +84,7 @@ inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/ %'<cr>:copen<cr>
 
 " Ack for the last search.
-nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<cr>
+nnoremap <silent> <leader>? :execute "Ag! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<cr>
 
 " Select the entire line charwise
 nnoremap vv ^vg_

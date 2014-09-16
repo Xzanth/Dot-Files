@@ -7,6 +7,8 @@ nnoremap <leader>gco :Gcheckout<cr>
 nnoremap <leader>gci :Gcommit<cr>
 nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
+nnoremap <silent> <leader>dg :diffget<cr>
+nnoremap <silent> <leader>dp :diffput<cr>
 
 augroup ft_fugitive
     au!

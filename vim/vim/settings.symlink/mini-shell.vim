@@ -14,4 +14,3 @@ function! s:ExecuteInShell(command) " {{{
 endfunction " }}}
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 nnoremap <leader>! :Shell<space>
-

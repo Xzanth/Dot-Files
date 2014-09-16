@@ -1,3 +1,5 @@
+" Pulse a line to bring it to attention.
+
 function! s:Pulse() " {{{
 	redir => old_hi
 		silent execute 'hi CursorLine'

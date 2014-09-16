@@ -14,6 +14,7 @@ else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
 endif
 
+" Default to filename searches.
 let g:ctrlp_by_filename = 1
 
 " Don't jump to already open window. This is annoying if you are maintaining
