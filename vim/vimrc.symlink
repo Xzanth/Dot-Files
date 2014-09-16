@@ -90,6 +90,7 @@ endif
 
 set backup
 set noswapfile
+set undofile
 
 set undodir=~/.vim/tmp/undo//
 set backupdir=~/.vim/tmp/backup//
