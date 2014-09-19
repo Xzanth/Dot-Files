@@ -22,7 +22,7 @@ augroup END
 " }}}
 
 " Highlight VCS conflict markers.
-match ErrorMsg '^\)<\|=\|>\)\{7\}\([^=].\+\)\?$'
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Use molokai as default color scheme.
 colorscheme molokai
