@@ -1,7 +1,8 @@
 # Dot Files
 
 My dot files and associated installation script. Dotfiles are split up into
-modules using folders, then specific modules can be installed/ignored.
+modules using folders, then specific modules can be installed/ignored. All
+files/folders are installed via. symbolic links.
 
 ## Installation
 
@@ -32,7 +33,7 @@ module_directory:
 ├── plugin2
 │   └── file.cfg.symlink
 └── plugin3.symlink
-    └── file2.symlink
+    └── file2.cfg
 ```
 All the files (bar install.sh) would keep the same directory structure with
 module_directory being the home directory. The difference between plugin2 and
