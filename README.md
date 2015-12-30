@@ -1,5 +1,5 @@
-# Dot Files
-
+<p align="center"><img align="middle" src="http://i.imgur.com/FKbece3.png" /></p>
+___
 My dot files and associated installation script. Dotfiles are split up into
 modules using folders, then specific modules can be installed/ignored. All
 files/folders are installed via. symbolic links.
