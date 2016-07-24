@@ -1,6 +1,6 @@
 " Fold ruby files according to their syntax.
 setlocal foldmethod=syntax
-set tabstop=8
-set expandtab
-set shiftwidth=2
-set softtabstop=2
+setlocal tabstop=8
+setlocal expandtab
+setlocal shiftwidth=2
+setlocal softtabstop=2
