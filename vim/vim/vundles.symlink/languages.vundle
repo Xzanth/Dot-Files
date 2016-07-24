@@ -6,3 +6,4 @@ Plugin 'garbas/vim-snipmate'		" Text snippets.
 Plugin 'nelstrom/vim-markdown-preview'	" Preview markdown in browser.
 Plugin 'skwp/vim-html-escape'		" Escape html.
 Plugin 'scrooloose/syntastic'		" Syntax checker.
+Plugin 'noprompt/vim-yardoc'		" Hilight yardoc in ruby.

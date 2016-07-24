@@ -6,5 +6,7 @@ let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list=1
 " Customize what the statusline shows.
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
+" Use rubocop to check ruby
+let g:syntastic_ruby_checkers = ['rubocop']
 
 nnoremap <leader>C :SyntasticCheck<cr>
