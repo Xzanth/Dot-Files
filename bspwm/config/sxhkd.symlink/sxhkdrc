@@ -16,11 +16,11 @@ super + Escape
 
 # open desktop specific terminal at bottom of screen
 super + e
-	/home/xz/bin/workspace_terminal
+	$HOME/.config/sxhkd/workspace_terminal
 
 # open shared terminal at top of screen
 super + alt + e
-	/home/xz/bin/shared_terminal
+	$HOME/.config/sxhkd/shared_terminal
 
 # open chromium
 super + c

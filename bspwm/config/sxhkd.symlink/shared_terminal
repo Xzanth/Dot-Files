@@ -1,0 +1,23 @@
+#!/bin/bash
+name="floating_shared_terminal"
+
+source ~/.config/bspwm/panel/config
+size=$(xdpyinfo | grep dimension | awk '{print $2}')
+width=$(echo $size | awk -F 'x' '{print $1}')
+height=$(echo $size | awk -F 'x' '{print $2}')
+term_width=$(($width / 2))
+term_height=$(($height * (2/5)))
+xoffset=$((($width - $term_width) / 2))
+yoffset=$PANEL_HEIGHT
+
+if [[ -z $(xdotool search --classname $name) ]]; then
+	xterm -name $name -ls &
+	sleep 0.04
+	xdotool search --classname $name windowsize $term_width $term_height windowmove $xoffset $yoffset
+else
+	if [[ -z $(xdotool search --classname $name"_hidden") ]]; then
+		xdotool search --classname $name windowunmap set_window --classname $name"_hidden" windowsize $term_width $term_height windowmove $xoffset $yoffset windowfocus
+	else
+		xdotool search --classname $name"_hidden" windowmap set_window --classname $name
+	fi
+fi

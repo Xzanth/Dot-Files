@@ -16,7 +16,7 @@ bspc config focus_by_distance		true
 bspc config history_aware_focus		true
 bspc config focus_follows_pointer	true
 
-bspc config external_rules_command $HOME/bin/external_rules
+bspc config external_rules_command $HOME/.config/bspwm/external_rules
 
 feh --bg-scale $HOME/.config/bspwm/sun.jpg
 

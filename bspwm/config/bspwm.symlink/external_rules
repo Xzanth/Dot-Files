@@ -1,0 +1,13 @@
+#!/bin/bash
+wid=$1
+class=$2
+instance=$3
+
+if [ "$class" = "XTerm" ] ; then
+	if [[ "$instance" == "floating_"* ]] ; then
+		echo "state = floating"
+	fi
+	if [[ "$instance" == "floating_shared_terminal" ]] ; then
+		echo "sticky = on"
+	fi
+fi
