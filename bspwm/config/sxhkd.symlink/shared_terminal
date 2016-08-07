@@ -11,8 +11,8 @@ xoffset=$((($width - $term_width) / 2))
 yoffset=$PANEL_HEIGHT
 
 if [[ -z $(xdotool search --classname $name) ]]; then
-	xterm -name $name -ls &
-	sleep 0.04
+	xterm -name $name -ls -fa "Hack:size=9" &
+	sleep 0.08
 	xdotool search --classname $name windowsize $term_width $term_height windowmove $xoffset $yoffset
 else
 	if [[ -z $(xdotool search --classname $name"_hidden") ]]; then
