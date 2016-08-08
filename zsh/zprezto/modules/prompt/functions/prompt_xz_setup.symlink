@@ -23,6 +23,11 @@ function prompt_xz_start_segment {
 
 function prompt_xz_build_prompt {
   local last_bg
+  if [[ "$SSH_CONNECTION" != '' ]]; then
+    prompt_xz_start_segment yellow black '%n@%m'
+  elif [[ $(logname) != $(whoami) ]]; then
+    prompt_xz_start_segment yellow black '%n'
+  fi
   prompt_xz_start_segment black white '$_prompt_xz_pwd'
   last_bg='black'
 
