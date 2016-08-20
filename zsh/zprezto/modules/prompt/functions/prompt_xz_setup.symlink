@@ -31,11 +31,15 @@ function prompt_xz_build_prompt {
   prompt_xz_start_segment black white '$_prompt_xz_pwd'
   last_bg='black'
 
+  if [[ $ruby_prompt ]]; then
+    prompt_xz_start_segment magenta default '$ruby_prompt'
+    last_bg='magenta'
+  fi
   if [[ -n "$git_info" ]]; then
     prompt_xz_start_segment red white '%B${(e)git_info[ref]}${(e)git_info[status]}%b'
     last_bg='red'
   fi
-  print -n "%F{$last_bg}"
+  print -n "%K{$last_bg}%F{$last_bg}"
 }
 
 function prompt_xz_pwd {
@@ -60,7 +64,7 @@ function prompt_xz_precmd {
   if (( $+functions[git-info] )); then
     git-info
   fi
-
+  ruby_prompt=$(rvm-prompt)
 }
 
 function prompt_xz_setup {
@@ -101,7 +105,7 @@ function prompt_xz_setup {
     'status' '%s%D%A%B%S%a%d%m%r%U%u'
 
   # Define prompts.
-  PROMPT='${(e)$(prompt_xz_build_prompt)}${editor_info[keymap]} '
+  PROMPT='${(e)$(prompt_xz_build_prompt)} ${editor_info[keymap]} '
 #  RPROMPT='%F{blue}[%F{green}%D{%H:%M:%S}%F{blue}]%f'
   RPROMPT=''
   SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
