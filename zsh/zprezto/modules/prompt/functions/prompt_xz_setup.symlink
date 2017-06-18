@@ -64,7 +64,9 @@ function prompt_xz_precmd {
   if (( $+functions[git-info] )); then
     git-info
   fi
-  ruby_prompt=$(rvm-prompt)
+  if type "rvm-prompt" > /dev/null; then
+    ruby_prompt=$(rvm-prompt)
+  fi
 }
 
 function prompt_xz_setup {
