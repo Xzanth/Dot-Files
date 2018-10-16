@@ -1,0 +1,165 @@
+" It's 2014, vim
+set nocompatible
+
+" General Config ----------------------------------------------------------- {{{
+
+set autoread			" Reload files changed outside vim.
+set backspace=indent,eol,start	" Allow backspace in insert mode.
+set colorcolumn=+1		" Highlight the column after textwidth.
+set complete=.,w,b,u,t		" Describes how keyword completion works.
+				" Letter  Meaning
+				" ----------------------------------------------
+				" .	| Scan the current buffer.
+				" w	| Scan buffer from other windows.
+				" b	| Scan other loaded buffers.
+				" u	| Scan unloaded buffers in buffer list.
+				" t	| Complete Tags.
+				" ----------------------------------------------
+set completeopt=longest,menuone,preview		" Use a popup menu even with only one match, insert longest common text and preview extra info.
+set cursorline			" Highlight current line in normal mode.
+set encoding=utf-8		" Use UTF-8 as character encoding.
+set formatoptions=qrn1j		" Describe how automatic formatting is performed.
+				" Letter  Meaning
+				" ----------------------------------------------
+				" q	| Format with gq.
+				" r	| Automatically continue comments on new line after <Enter>.
+				" n	| Recognize and format numbered lists.
+				" 1	| Don't break a line after a one letter word, break before ideally.
+				" j	| When joining comments remove comment leader.
+				" ----------------------------------------------
+set gdefault			" g flag automatically on in substitutions, another g flag will turn it off.
+set hidden			" Hide buffers upon abandoning them.
+set history=1000		" Save 1000 command-lines in history.
+set hlsearch			" Highlight all the matches of the previous search.
+set ignorecase			" Ignore case in searches.
+set incsearch			" Show incremental matches as you type the search.
+set laststatus=2		" Always display statusline (powerline).
+set lazyredraw			" Don't redraw during macro/register playback.
+set list			" Make whitespace chars visible.
+set listchars=tab:▸\ ,extends:❯,precedes:❮	" Specify how whitespace chars are displayed. Extends and precedes indicate where a line has not wrapped
+set matchtime=3			" Show matching parenthesis for this many 1/10 secs.
+set modelines=0			" Don't check the beginning of files for modelines.
+set mouse=a			" Enable the mouse in all modes.
+set number			" Enable line numbers.
+set notimeout			" Don't timeout on :mappings and only timeout on keycodes if ttimeout is off.
+set ruler			" Show line and col number in command line.
+set scrolloff=3			" Always keep the cursor line this many lines from the top or bottom.
+set showbreak=↪			" Symbol to indicate line has broken only in view.
+set showcmd			" Show the partial command in the last line of screen and lenth of any visual selection.
+set showmatch			" When a bracket is inserted briefly jump to it's match if it is on screen.
+set showmode			" Show what mode vim is in (e.g. Insert or Visual).
+set sidescroll=10		" Minimum no. of col to scroll horizontally when wrap is off.
+set splitbelow			" Open horizontal splits below current window.
+set splitright			" Open vertical splits right of current window.
+set synmaxcol=800		" Don't highlight lines longer than 800 columns.
+set smartcase			" Only ignore case if it's all lowercase.
+set textwidth=80		" Width of text, auto-wraps if t is in formatoptions.
+set title			" Set title to titlestring or currently active buffer.
+set ttimeout			" Timeout on key codes.
+set ttimeoutlen=10		" Time in ms that is waited for a key code to complete.
+set ttyfast			" Changes setting to indicate a fast terminal connection.
+set undofile			" Save undo after a file closes.
+set undoreload=10000		" If a file has more than this many lines it won't be saved as an undo history when reloaded.
+set virtualedit+=block		" Enable positioning cursor where there is no char in visual block mode.
+set visualbell			" Don't play sounds.
+set wrap			" Wrap text round to another line in view.
+
+" Turn on syntax highlighting.
+syntax on
+
+" Load plugins for specific filetypes
+filetype plugin on
+
+" Change leader to a comma and local leader to backslash.
+let mapleader = ","
+let maplocalleader = "\\"
+
+" Resize splits when the window is resized.
+au VimResized * :wincmd =
+
+" }}}
+" Vim Plug Initialization -------------------------------------------------- {{{
+" Load all the plugins specified in ~/.config/nvim/plugins.vim
+
+if filereadable(expand("~/.config/nvim/plugins.vim"))
+	source ~/.config/nvim/plugins.vim
+endif
+ 
+" }}}
+" Backups ------------------------------------------------------------------ {{{
+" Turn off swap files but store backups and undos in ~/.vim/tmp/. Save all of
+" these as the full path with forward slashes replaced with percent signs to
+" stop conflicts between the undo history and backups of files with the same
+" name.
+
+set backup
+set noswapfile
+set undofile
+
+set undodir=~/.vim/tmp/undo//
+set backupdir=~/.vim/tmp/backup//
+set directory=~/.vim/tmp/swap//
+
+" Make these folders automatically if the don't already exist.
+if !isdirectory(expand(&undodir))
+	call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+	call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+	call mkdir(expand(&directory), "p")
+endif
+
+" Fixes 'crontab: temp file must be edited in place.'
+set backupskip=/tmp/*,/private/tmp/*"
+
+" }}}
+" Indentation -------------------------------------------------------------- {{{
+" By default use tabs with a width of 8 spaces.
+
+set autoindent		" Automatically use the same indent from current line when making a new one.
+set noexpandtab		" Use tabs rather than spaces.
+set shiftround		" Round indents with < or > to multiples of shiftwidth.
+set shiftwidth=8	" Spaces per tab when shifting.
+set softtabstop=8	" Edit indents as though tabstop is set to this.
+set tabstop=8		" Number of spaces that a tab counts for.
+
+filetype indent on
+
+" }}}
+" Completion --------------------------------------------------------------- {{{
+" Enable wildmenu completion so options are listed above the command line. List
+" all the matches and complete until current common longest
+" Don't look in included files for completion
+" Use menu for anything with one or more matchings, show more info and only
+" insert longest common text.
+
+set wildmenu
+set wildmode=list:longest
+
+" Ignore files we don't want vim to deal with.
+set wildignore+=.hg,.git,.svn,.gitkeep			" Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.webm	" Binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest	" Compiled object files
+set wildignore+=*.sw?					" Vim swap files
+set wildignore+=*.DS_Store				" OSX bullshit
+set wildignore+=*.orig					" Merge resolution files
+set wildignore+=*sass-cache*				" Sass stuff
+
+set wildignore+=*.aux,*.out,*.toc			" LaTeX  stuff
+
+set wildignore+=*.luac					" Lua byte code
+
+set wildignore+=migrations				" Django migrations
+set wildignore+=*.pyc					" Python byte code
+
+set wildignore+=*.cs.dso				" Compiled Torquescript
+
+" }}}
+" Custom Settings ---------------------------------------------------------- {{{
+
+so ~/.config/nvim/settings.vim
+so ~/.config/nvim/plugs.vim
+
+" }}}
