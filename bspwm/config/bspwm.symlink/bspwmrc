@@ -18,6 +18,8 @@ bspc config focus_follows_pointer	true
 
 bspc config external_rules_command $HOME/.config/bspwm/external_rules
 
+bspc rule -a Matplotlib state=floating
+
 feh --bg-scale $HOME/.config/bspwm/sun.jpg
 
 cd $HOME/.config/bspwm/panel
