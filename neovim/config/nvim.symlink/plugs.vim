@@ -4,6 +4,8 @@ Plug 'tpope/vim-surround'
 
 Plug 'vim-airline/vim-airline'
 
+Plug 'lervag/vimtex'
+
 Plug 'airblade/vim-gitgutter'		" Gutter with signs of whether text has been added, removed or changed.
 Plug 'tpope/vim-fugitive'		" Wrapper for git.
 Plug 'tpope/vim-git'			" Updated filetype and syntax settings for git related files.
