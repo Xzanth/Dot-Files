@@ -122,6 +122,10 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
+# Whole desktop moves
+super + {_,shift + }r
+	bspc node @/ --rotate {90,-90}
+
 #
 # move/resize
 #
