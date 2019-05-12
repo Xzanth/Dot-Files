@@ -17,7 +17,7 @@ if [[ -n $output ]]; then
 		DIR=$currdir/$output
 	fi
 else
-	DIR=$currdir
+	DIR=$HOME
 fi
 
 cd $DIR 2> /dev/null

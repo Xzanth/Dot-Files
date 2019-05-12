@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+currdes=$(bspc query -D -d)
+
+pwd > /tmp/direct_$currdes

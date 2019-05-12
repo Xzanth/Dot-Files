@@ -5,6 +5,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+#zmodload zsh/zprof
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -14,5 +16,9 @@ alias vim="nvim"
 
 export WORKON_HOME=$HOME/.venvs
 export PROJECT_HOME=$HOME/git
+export PATH=$PATH:~/.bin
 source /etc/bash_completion.d/virtualenvwrapper
-workon default
+
+source ~/.venvs/default/bin/activate
+
+#zprof
