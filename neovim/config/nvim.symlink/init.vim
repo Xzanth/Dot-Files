@@ -6,7 +6,7 @@ set nocompatible
 set autoread			" Reload files changed outside vim.
 set backspace=indent,eol,start	" Allow backspace in insert mode.
 set colorcolumn=+1		" Highlight the column after textwidth.
-set complete=.,w,b,u,t		" Describes how keyword completion works.
+"set complete=.,w,b,u,t		" Describes how keyword completion works.
 				" Letter  Meaning
 				" ----------------------------------------------
 				" .	| Scan the current buffer.
@@ -15,7 +15,7 @@ set complete=.,w,b,u,t		" Describes how keyword completion works.
 				" u	| Scan unloaded buffers in buffer list.
 				" t	| Complete Tags.
 				" ----------------------------------------------
-set completeopt=longest,menuone,preview		" Use a popup menu even with only one match, insert longest common text and preview extra info.
+"set completeopt=longest,menuone,preview		" Use a popup menu even with only one match, insert longest common text and preview extra info.
 set cursorline			" Highlight current line in normal mode.
 set encoding=utf-8		" Use UTF-8 as character encoding.
 set formatoptions=qrn1j		" Describe how automatic formatting is performed.
@@ -53,7 +53,7 @@ set splitbelow			" Open horizontal splits below current window.
 set splitright			" Open vertical splits right of current window.
 set synmaxcol=800		" Don't highlight lines longer than 800 columns.
 set smartcase			" Only ignore case if it's all lowercase.
-set textwidth=80		" Width of text, auto-wraps if t is in formatoptions.
+set textwidth=79		" Width of text, auto-wraps if t is in formatoptions.
 set title			" Set title to titlestring or currently active buffer.
 set ttimeout			" Timeout on key codes.
 set ttimeoutlen=10		" Time in ms that is waited for a key code to complete.

@@ -15,4 +15,3 @@ augroup ft_fugitive
 
     au BufNewFile,BufRead .git/index setlocal nolist
 augroup END
-
