@@ -42,4 +42,7 @@ Plug 'lucapette/vim-textobj-underscore'
 " Arguments as text objects.
 Plug 'vim-scripts/argtextobj.vim'
 
+" Snippets
+Plug 'SirVer/ultisnips'
+
 call plug#end()
