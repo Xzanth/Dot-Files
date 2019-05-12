@@ -1,0 +1,18 @@
+#!/usr/bin/zsh
+
+cd $HOME
+
+while :; do
+	currdes=$(bspc query -D -d)
+	if [[ -a /tmp/direct_$currdes ]]; then
+		currdir=$(cat /tmp/direct_$currdes)
+	else
+		currdir=`pwd`
+	fi
+	if [[ $currdir = $HOME ]]; then
+		echo "T"
+	else
+		echo "T$currdir"
+	fi
+	sleep 0.3
+done

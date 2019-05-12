@@ -1,0 +1,34 @@
+#!/usr/bin/zsh
+
+currdes=$(bspc query -D -d)
+
+if [[ -a /tmp/direct_$currdes ]]; then
+	currdir=$(cat /tmp/direct_$currdes)
+else
+	currdir=$HOME
+fi
+
+output=$(dmenu_path | dmenu -c -lr 2 -d 0.3 -fn 'Hack:size=9' -po $currdir "$@")
+
+if [[ -n $output ]]; then
+	if [[ $output =~ '^/' ]]; then
+		DIR=$output
+	else
+		DIR=$currdir/$output
+	fi
+else
+	DIR=$HOME
+fi
+
+cd $DIR 2> /dev/null
+
+if [[ $? -ne 0 ]]; then
+	if [[ $DIR == $currdir ]]; then
+		cd $HOME
+	else
+		cd $currdir
+	fi
+fi
+
+pwd > /tmp/direct_$currdes
+

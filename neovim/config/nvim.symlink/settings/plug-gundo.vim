@@ -4,4 +4,3 @@ let g:gundo_right = 1
 
 " A little wider for wider screens.
 let g:gundo_width = 60
-

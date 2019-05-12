@@ -10,24 +10,30 @@ _prompt_xz_segment_separator=''
 
 function prompt_xz_start_segment {
   local bg fg
+
   [[ -n "$1" ]] && bg="%K{$1}" || bg="%k"
   [[ -n "$2" ]] && fg="%F{$2}" || fg="%f"
+
   if [[ "$_prompt_xz_current_bg" != 'NONE' && "$1" != "$_prompt_xz_current_bg" ]]; then
     print -n " $bg%F{$_prompt_xz_current_bg}$_prompt_xz_segment_separator$fg "
   else
     print -n "$bg$fg "
   fi
+
   _prompt_xz_current_bg="$1"
   [[ -n "$3" ]] && print -n "$3"
 }
 
 function prompt_xz_build_prompt {
+
   local last_bg
+
   if [[ "$SSH_CONNECTION" != '' ]]; then
     prompt_xz_start_segment yellow black '%n@%m'
   elif [[ $(logname) != $(whoami) ]]; then
     prompt_xz_start_segment yellow black '%n'
   fi
+
   prompt_xz_start_segment black white '$_prompt_xz_pwd'
   last_bg='black'
 
@@ -35,10 +41,17 @@ function prompt_xz_build_prompt {
     prompt_xz_start_segment magenta default '$ruby_prompt'
     last_bg='magenta'
   fi
+
+  if [[ $python_info[virtualenv] != 'default' && $python_info[virtualenv] != '' ]]; then
+    prompt_xz_start_segment blue default '$python_info[virtualenv]'
+    last_bg='blue'
+  fi
+
   if [[ -n "$git_info" ]]; then
     prompt_xz_start_segment red white '%B${(e)git_info[ref]}${(e)git_info[status]}%b'
     last_bg='red'
   fi
+
   print -n "%K{$last_bg}%F{$last_bg}"
 }
 
@@ -65,8 +78,10 @@ function prompt_xz_precmd {
     git-info
   fi
 
-  if type "rvm-prompt" > /dev/null; then
-    ruby_prompt=$(rvm-prompt)
+  ruby_prompt=$(rvm_prompt_info)
+
+  if (( $+functions[python-info] )); then
+    python-info
   fi
 }
 
@@ -77,6 +92,7 @@ function rvm_prompt_info {
   [[ "${rvm_prompt}x" == "x" ]] && return 1
   echo "${ZSH_THEME_RVM_PROMPT_PREFIX:=(}${rvm_prompt}${ZSH_THEME_RVM_PROMPT_SUFFIX:=)}"
 }
+
 function prompt_xz_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
@@ -93,6 +109,8 @@ function prompt_xz_setup {
   zstyle ':prezto:module:editor:info:keymap:primary' format '%K{cyan}%k%F{cyan}%f'
   zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%K{yellow}%k%F{yellow}%f'
   zstyle ':prezto:module:editor:info:keymap:alternate' format '%K{green}%k%F{green}%f'
+
+  zstyle ':prezto:module:python:info:virtualenv' format '%v'
 
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
