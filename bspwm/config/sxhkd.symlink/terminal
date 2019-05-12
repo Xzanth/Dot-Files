@@ -1,0 +1,11 @@
+#!/usr/bin/zsh
+
+currdes=$(bspc query -D -d)
+
+if [[ -a /tmp/direct_$currdes ]]; then
+	currdir=$(cat /tmp/direct_$currdes)
+else
+	currdir=`pwd`
+fi
+
+xterm -e "cd $currdir && zsh"

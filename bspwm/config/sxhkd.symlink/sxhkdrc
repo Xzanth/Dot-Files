@@ -4,11 +4,14 @@
 
 # terminal emulator
 super + Return
-	xterm
+	$HOME/.config/sxhkd/terminal
 
 # program launcher
 super + space
-	dmenu_run
+	dmenu_run -fn 'Hack:size=9'
+
+super + alt + space
+	$HOME/.config/sxhkd/write_directory
 
 # make sxhkd reload its configuration files:
 super + Escape

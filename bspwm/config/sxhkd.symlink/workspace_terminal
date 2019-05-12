@@ -10,8 +10,14 @@ term_height=$(($height / 3))
 xoffset=$((($width - $term_width) / 2))
 yoffset=$(($height - ($term_height + ($(bspc config window_gap) * 3))))
 
+if [[ -a /tmp/direct_$current ]]; then
+	currdir=$(cat /tmp/direct_$current)
+else
+	currdir=`pwd`
+fi
+
 if [[ -z $(xdotool search --classname $name) ]]; then
-	xterm -name $name -ls -fa "Hack:size=9" &
+	xterm -name $name -ls -fa "Hack:size=9" -e "cd $currdir && zsh" &
 	sleep 0.08
 	xdotool search --classname $name windowsize $term_width $term_height windowmove $xoffset $yoffset
 else

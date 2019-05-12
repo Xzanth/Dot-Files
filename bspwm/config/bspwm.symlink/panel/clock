@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while :; do
+	TIME=$(date "+%a %d, %T")
+	echo "S$TIME"
+	sleep 1
+done
