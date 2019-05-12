@@ -10,6 +10,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+alias vim="nvim"
+
 export WORKON_HOME=$HOME/.venvs
 export PROJECT_HOME=$HOME/git
 source /etc/bash_completion.d/virtualenvwrapper
