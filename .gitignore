@@ -1,1 +1,5 @@
 install.conf
+logs
+*.log
+*.pem
+sec.conf
