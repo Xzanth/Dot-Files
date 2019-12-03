@@ -105,6 +105,7 @@ function prompt_xz_setup {
   add-zsh-hook precmd prompt_xz_precmd
 
   # Set editor-info parameters.
+  zstyle ':prezto:module:prompt' managed 'yes'
   zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
   zstyle ':prezto:module:editor:info:keymap:primary' format '%K{cyan}%k%F{cyan}%f'
   zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%K{yellow}%k%F{yellow}%f'
